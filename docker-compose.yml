@@ -1,0 +1,18 @@
+services:
+  frontend1:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      - ./src:/app/src
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    command: npm test -- --watchAll=false
+    volumes:
+      - /app/node_modules
+      - ./src:/app/src

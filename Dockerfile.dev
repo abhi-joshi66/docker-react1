@@ -1,0 +1,13 @@
+FROM node:lts-alpine
+
+WORKDIR /app
+
+COPY package.json ./
+RUN npm install
+
+# THis is for development purpose, so we are copying all the files to the container . this is strictly not necessary for production purpose. In production we will only copy the build folder to the container.
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
