@@ -1,0 +1,29 @@
+name: Deploy Frontend
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v1
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: ./Dockerfile.dev
+          push: false
+          load: true
+          tags: frontend1:latest
+
+      - name: Run tests
+        run: docker run --rm frontend1:latest npm test -- --watchAll=false --passWithNoTests
+
+      - name: Generate deployment package
+        run: zip -r deploy.zip . -x '*.git*'
