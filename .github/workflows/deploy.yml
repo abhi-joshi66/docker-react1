@@ -37,5 +37,5 @@ jobs:
           environment_name: Frontend2-env
           existing_bucket_name: elasticbeanstalk-ap-south-1-720646471511
           region: ap-south-1
-         version_label: ${{ github.sha }}-${{ github.run_number }}
+          version_label: ${{ github.sha }}-${{ github.run_number }}
           deployment_package: deploy.zip
